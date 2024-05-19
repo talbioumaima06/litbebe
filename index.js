@@ -29,7 +29,7 @@ app.use(function(req, res, next) {
 
 initializeApp({
   credential: applicationDefault(),
-  projectId: 'potion-for-creators',
+  projectId: 'litbebe-a66b1',
 });
 
 app.post("/send", function (req, res) {
@@ -40,7 +40,7 @@ app.post("/send", function (req, res) {
       title: "Notif",
       body: 'This is a Test Notification'
     },
-    token: "YOUR FCM TOKEN HERE",
+    token: "cP7bqktsRouLIO2WAlKX8T:APA91bEyxEU3S05o-Jh0t8anmS6-wZHBDwh2S6jj-M0uS8_0dJY575Vb1cHAGeg-TLn8YnMuoq6HHu1H_hbnLjbGN_0jhrBvQIK05804SWiRzg9ZFEYsZTEhAzgFH8zIMGDnzFILzEd5",
   };
   
   getMessaging()
