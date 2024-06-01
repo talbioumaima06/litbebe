@@ -65,6 +65,58 @@ onValue(temperatureRef, (snapshot) => {
   }
 });
 
+const mouvementRef = ref(db, '/Sensor/StatusMvt');
+// Add a listener for changes to the mouvement sensor
+onValue(mouvementRef, (snapshot) => {
+  const mouvement = snapshot.val();
+  if (mouvement != "Your baby is calm") {
+    // Temperature exceeds 37, send notification
+    const message = {
+      notification: {
+        title: "Your Bbay is Mouving",
+        body: ``
+      },
+      // Add the FCM token here for the device you want to send notification to
+      token: "d7iShlFSSpG6t4sRjzQ-5h:APA91bF2G4cTXuXuMXyDbvCIjDJH8bs6kVUoWCbiXNIUUedIWDk5jcmgRlcQdBvZpKfVaGIeZpK08h9lJggLIIJXxxhohO-GMwetwelDGnJM9oiQ08--PTe0-UVouz1jl0RKqp9K908_",
+    };
+
+    getMessaging()
+      .send(message)
+      .then((response) => {
+        console.log("Successfully sent message:", response);
+      })
+      .catch((error) => {
+        console.log("Error sending message:", error);
+      });
+  }
+});
+
+const soundRed = ref(db, '/Sensor/sound_status');
+// Add a listener for changes to the sound sensor
+onValue(soundRed, (snapshot) => {
+  const sounds = snapshot.val();
+  if (sounds != "Your baby is sleeping.") {
+    // Temperature exceeds 37, send notification
+    const message = {
+      notification: {
+        title: "Your baby is making sounds",
+        body: ``
+      },
+      // Add the FCM token here for the device you want to send notification to
+      token: "d7iShlFSSpG6t4sRjzQ-5h:APA91bF2G4cTXuXuMXyDbvCIjDJH8bs6kVUoWCbiXNIUUedIWDk5jcmgRlcQdBvZpKfVaGIeZpK08h9lJggLIIJXxxhohO-GMwetwelDGnJM9oiQ08--PTe0-UVouz1jl0RKqp9K908_",
+    };
+
+    getMessaging()
+      .send(message)
+      .then((response) => {
+        console.log("Successfully sent message:", response);
+      })
+      .catch((error) => {
+        console.log("Error sending message:", error);
+      });
+  }
+});
+
 // Your existing code for sending notifications
 app.post("/send", function (req, res) {
   const receivedToken = req.body.fcmToken;
