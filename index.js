@@ -4,9 +4,11 @@ import { getDatabase } from "firebase-admin/database";
 import { ref, onValue } from 'firebase/database';
 import express, { json } from "express";
 import cors from "cors";
+import admin from 'firebase-admin';
 
 
 process.env.GOOGLE_APPLICATION_CREDENTIALS;
+import serviceAccount from './litbebe-a66b1-firebase-adminsdk-fjqwg-ee9fcda21f.json' assert { type: 'json' };
 
 const app = express();
 app.use(express.json());
@@ -30,14 +32,13 @@ app.use(function(req, res, next) {
 
 
 initializeApp({
-  credential: applicationDefault(),
-  projectId: 'litbebe-a66b1',
-  databaseURL: 'https://litbebe-a66b1-default-rtdb.europe-west1.firebasedatabase.app'
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: "https://litbebe-a66b1-default-rtdb.europe-west1.firebasedatabase.app"
 });
 
 // Access Firebase Realtime Database after initialization
 const db = getDatabase();
-const temperatureRef = ref(db, 'temperature');
+const temperatureRef = ref(db, '/DHT_11/Temperature');
 
 // Add a listener for changes to the temperature
 onValue(temperatureRef, (snapshot) => {
@@ -50,7 +51,7 @@ onValue(temperatureRef, (snapshot) => {
         body: `The temperature (${temperature}°C) has exceeded 37°C.`
       },
       // Add the FCM token here for the device you want to send notification to
-      token: "cP7bqktsRouLIO2WAlKX8T:APA91bEyxEU3S05o-Jh0t8anmS6-wZHBDwh2S6jj-M0uS8_0dJY575Vb1cHAGeg-TLn8YnMuoq6HHu1H_hbnLjbGN_0jhrBvQIK05804SWiRzg9ZFEYsZTEhAzgFH8zIMGDnzFILzEd5",
+      token: "d7iShlFSSpG6t4sRjzQ-5h:APA91bF2G4cTXuXuMXyDbvCIjDJH8bs6kVUoWCbiXNIUUedIWDk5jcmgRlcQdBvZpKfVaGIeZpK08h9lJggLIIJXxxhohO-GMwetwelDGnJM9oiQ08--PTe0-UVouz1jl0RKqp9K908_",
     };
 
     getMessaging()
@@ -73,7 +74,7 @@ app.post("/send", function (req, res) {
       title: "Notif",
       body: 'This is a Test Notification'
     },
-    token: "cP7bqktsRouLIO2WAlKX8T:APA91bEyxEU3S05o-Jh0t8anmS6-wZHBDwh2S6jj-M0uS8_0dJY575Vb1cHAGeg-TLn8YnMuoq6HHu1H_hbnLjbGN_0jhrBvQIK05804SWiRzg9ZFEYsZTEhAzgFH8zIMGDnzFILzEd5",
+    token: "d7iShlFSSpG6t4sRjzQ-5h:APA91bF2G4cTXuXuMXyDbvCIjDJH8bs6kVUoWCbiXNIUUedIWDk5jcmgRlcQdBvZpKfVaGIeZpK08h9lJggLIIJXxxhohO-GMwetwelDGnJM9oiQ08--PTe0-UVouz1jl0RKqp9K908_",
   };
   
   getMessaging()
