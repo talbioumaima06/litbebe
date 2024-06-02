@@ -38,7 +38,7 @@ initializeApp({
 
 // Access Firebase Realtime Database after initialization
 const db = getDatabase();
-const temperatureRef = ref(db, '/DHT_11/Temperature');
+const temperatureRef = ref(db, '/Sensor/DHT_11/Temperature');
 
 // Add a listener for changes to the temperature
 onValue(temperatureRef, (snapshot) => {
