@@ -66,7 +66,7 @@ onValue(temperatureRef, (snapshot) => {
   }
 });
 
-const mouvementRef = ref(db, '/Sensor/StatusMvt');
+const mouvementRef = ref(db, '/Sensor/Mvt_Status');
 // Add a listener for changes to the mouvement sensor
 onValue(mouvementRef, (snapshot) => {
   const mouvement = snapshot.val();
