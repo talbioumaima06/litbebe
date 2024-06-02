@@ -12,6 +12,7 @@ import serviceAccount from './litbebe-a66b1-firebase-adminsdk-fjqwg-ee9fcda21f.j
 
 const app = express();
 app.use(express.json());
+const fcmToekn = "";
 
 app.use(
   cors({
@@ -51,7 +52,7 @@ onValue(temperatureRef, (snapshot) => {
         body: `The temperature (${temperature}°C) has exceeded 37°C.`
       },
       // Add the FCM token here for the device you want to send notification to
-      token: "d7iShlFSSpG6t4sRjzQ-5h:APA91bF2G4cTXuXuMXyDbvCIjDJH8bs6kVUoWCbiXNIUUedIWDk5jcmgRlcQdBvZpKfVaGIeZpK08h9lJggLIIJXxxhohO-GMwetwelDGnJM9oiQ08--PTe0-UVouz1jl0RKqp9K908_",
+      token: fcmToekn,
     };
 
     getMessaging()
@@ -77,7 +78,7 @@ onValue(mouvementRef, (snapshot) => {
         body: ``
       },
       // Add the FCM token here for the device you want to send notification to
-      token: "d7iShlFSSpG6t4sRjzQ-5h:APA91bF2G4cTXuXuMXyDbvCIjDJH8bs6kVUoWCbiXNIUUedIWDk5jcmgRlcQdBvZpKfVaGIeZpK08h9lJggLIIJXxxhohO-GMwetwelDGnJM9oiQ08--PTe0-UVouz1jl0RKqp9K908_",
+      token: fcmToekn,
     };
 
     getMessaging()
@@ -103,7 +104,7 @@ onValue(soundRed, (snapshot) => {
         body: ``
       },
       // Add the FCM token here for the device you want to send notification to
-      token: "d7iShlFSSpG6t4sRjzQ-5h:APA91bF2G4cTXuXuMXyDbvCIjDJH8bs6kVUoWCbiXNIUUedIWDk5jcmgRlcQdBvZpKfVaGIeZpK08h9lJggLIIJXxxhohO-GMwetwelDGnJM9oiQ08--PTe0-UVouz1jl0RKqp9K908_",
+      token: fcmToekn,
     };
 
     getMessaging()
@@ -126,7 +127,7 @@ app.post("/send", function (req, res) {
       title: "Notif",
       body: 'This is a Test Notification'
     },
-    token: "d7iShlFSSpG6t4sRjzQ-5h:APA91bF2G4cTXuXuMXyDbvCIjDJH8bs6kVUoWCbiXNIUUedIWDk5jcmgRlcQdBvZpKfVaGIeZpK08h9lJggLIIJXxxhohO-GMwetwelDGnJM9oiQ08--PTe0-UVouz1jl0RKqp9K908_",
+    token: fcmToekn,
   };
   
   getMessaging()
