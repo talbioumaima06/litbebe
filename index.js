@@ -12,7 +12,7 @@ import serviceAccount from './litbebe-a66b1-firebase-adminsdk-fjqwg-ee9fcda21f.j
 
 const app = express();
 app.use(express.json());
-const fcmToekn = "";
+const fcmToekn = "eYim_udGTKmOHgzTTLihe4:APA91bGxduY9guEcYy5hjTK6ddtQfpn3La9UNvFsjKHUUoiKaOwE6UkXLw2rTJTlLPLJ_7hg9gWI9W-NjrDdhz719XZATanygXlxp5jJntNb7kgGYpABpCaWqt3VGEmutaVE9WAwc3iD";
 
 app.use(
   cors({
@@ -74,7 +74,7 @@ onValue(mouvementRef, (snapshot) => {
     // Temperature exceeds 37, send notification
     const message = {
       notification: {
-        title: "Your Bbay is Mouving",
+        title: "Votre bébé bouge !",
         body: ``
       },
       // Add the FCM token here for the device you want to send notification to
@@ -100,7 +100,7 @@ onValue(soundRed, (snapshot) => {
     // Temperature exceeds 37, send notification
     const message = {
       notification: {
-        title: "Your baby is making sounds",
+        title: "Vérifiez votre bébé, il fait des bruits !",
         body: ``
       },
       // Add the FCM token here for the device you want to send notification to
@@ -143,9 +143,7 @@ app.post("/send", function (req, res) {
       res.status(400);
       res.send(error);
       console.log("Error sending message:", error);
-    });
-  
-  
+    });  
 });
 
 app.listen(3000, function () {
