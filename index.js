@@ -5,7 +5,7 @@ import { ref, onValue } from 'firebase/database';
 import express, { json } from "express";
 import cors from "cors";
 import admin from 'firebase-admin';
-
+import fs from "fs";
 
 process.env.GOOGLE_APPLICATION_CREDENTIALS;
 import serviceAccount from './litbebe-a66b1-firebase-adminsdk-fjqwg-ee9fcda21f.json' assert { type: 'json' };
@@ -141,6 +141,28 @@ onValue(aiRef, (snapshot) => {
     });
 });
 
+// Handle image upload
+app.post("/upload", function (req, res) {
+  const base64Data = req.body.image; // Assuming the base64 image data is sent in the 'image' field
+  
+  // Generate a unique filename for the image
+  const fileName = `${Date.now()}.png`; // You can adjust the file extension as per your requirement
+  
+  // Path to save the uploaded image
+  const filePath = `./uploads/${fileName}`;
+  
+  // Write the base64 data to a file
+  fs.writeFile(filePath, base64Data, 'base64', function(err) {
+    if (err) {
+      console.error("Error saving image:", err);
+      res.status(500).json({ error: "Error saving image" });
+    } else {
+      console.log("Image saved successfully");
+      res.status(200).json({ message: "Image uploaded successfully", filePath });
+    }
+  });
+});
+
 // Your existing code for sending notifications
 app.post("/send", function (req, res) {
   const receivedToken = req.body.fcmToken;
@@ -169,6 +191,8 @@ app.post("/send", function (req, res) {
     });  
 });
 
-app.listen(3000, function () {
+const port = 3000;
+const hostname = '192.168.1.17'; // or '192.168.1.26'
+app.listen(port, hostname, () => {
   console.log("Server started on port 3000");
 });
