@@ -12,7 +12,7 @@ import serviceAccount from './litbebe-a66b1-firebase-adminsdk-fjqwg-ee9fcda21f.j
 
 const app = express();
 app.use(express.json());
-const fcmToekn = "eYim_udGTKmOHgzTTLihe4:APA91bGxduY9guEcYy5hjTK6ddtQfpn3La9UNvFsjKHUUoiKaOwE6UkXLw2rTJTlLPLJ_7hg9gWI9W-NjrDdhz719XZATanygXlxp5jJntNb7kgGYpABpCaWqt3VGEmutaVE9WAwc3iD";
+const fcmToekn = "eZJwd8XHTbWqpl00bf7REG:APA91bGZ__TMA0FZrO7FOK72udEGOmlEjSudi21y0PFIVNtTgPHz6Lo-jQTU65je8gZLq-ptQqv-F7CU08DuAnMsU7kUAuxuV_U_xfEBCSn4P7BdWKjEh0BJLp6e53tg-c0fmgXjAOF-";
 
 app.use(
   cors({
@@ -116,6 +116,29 @@ onValue(soundRed, (snapshot) => {
         console.log("Error sending message:", error);
       });
   }
+});
+
+const aiRef = ref(db, '/ai_listener');
+// Add a listener for changes to the ai istener
+onValue(aiRef, (snapshot) => {
+  const aiVal = snapshot.val();
+  const message = {
+    notification: {
+      title: "Votre bébé est dans une position dangereuse, vérifiez-le s'il vous plaît!",
+      body: ``
+    },
+    // Add the FCM token here for the device you want to send notification to
+    token: fcmToekn,
+  };
+
+  getMessaging()
+    .send(message)
+    .then((response) => {
+      console.log("Successfully sent message:", response);
+    })
+    .catch((error) => {
+      console.log("Error sending message:", error);
+    });
 });
 
 // Your existing code for sending notifications
