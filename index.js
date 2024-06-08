@@ -118,7 +118,7 @@ onValue(soundRed, (snapshot) => {
   }
 });
 
-const aiRef = ref(db, '/ai_listener');
+const aiRef = ref(db, '/camera/ai_listener');
 // Add a listener for changes to the ai istener
 onValue(aiRef, (snapshot) => {
   const aiVal = snapshot.val();
