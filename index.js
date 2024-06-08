@@ -1,7 +1,7 @@
 import {initializeApp, applicationDefault } from 'firebase-admin/app';
 import { getMessaging } from "firebase-admin/messaging";
 import { getDatabase } from "firebase-admin/database";
-import { ref, onValue } from 'firebase/database';
+import { ref, onValue, set } from 'firebase/database';
 import express, { json } from "express";
 import cors from "cors";
 import admin from 'firebase-admin';
@@ -147,6 +147,7 @@ onValue(aiRef, (snapshot) => {
     });
 });
 
+const imageRef = ref(db, '/camera/current_image');
 // Handle image upload
 app.post("/upload", function (req, res) {
   const base64Data = req.body.image; // Assuming the base64 image data is sent in the 'image' field
@@ -164,7 +165,16 @@ app.post("/upload", function (req, res) {
       res.status(500).json({ error: "Error saving image" });
     } else {
       console.log("Image saved successfully");
-      res.status(200).json({ message: "Image uploaded successfully", filePath });
+      // Set the filename as the current image
+      set(imageRef, fileName)
+      .then(() => {
+        console.log("Current image updated in Firebase");
+        res.status(200).json({ message: "Image uploaded successfully", filePath });
+      })
+      .catch((error) => {
+        console.error("Error updating current image in Firebase:", error);
+        res.status(500).json({ error: "Error updating current image in Firebase" });
+      });    
     }
   });
 });
