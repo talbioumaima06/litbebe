@@ -12,7 +12,7 @@ process.env.GOOGLE_APPLICATION_CREDENTIALS;
 import serviceAccount from './litbebe-a66b1-firebase-adminsdk-fjqwg-ee9fcda21f.json' assert { type: 'json' };
 
 const app = express();
-const fcmToekn = "eZJwd8XHTbWqpl00bf7REG:APA91bGZ__TMA0FZrO7FOK72udEGOmlEjSudi21y0PFIVNtTgPHz6Lo-jQTU65je8gZLq-ptQqv-F7CU08DuAnMsU7kUAuxuV_U_xfEBCSn4P7BdWKjEh0BJLp6e53tg-c0fmgXjAOF-";
+const fcmToekn = "eoaHcpyESXKC8SciUSwBtq:APA91bHxrIVSFYKPoDfPUdAIJDGceSdQWlNgW5PFwuB4BdRoPKYneCQ4nUgD6ap7NnOG6y68XVZ9_KpOEkTdjmgeZYpNLkg5Q20hk2OyVLreYJWSapEtYwnx6-hDrZgLX64ZBVrV5Euy"
 
 // Parse JSON bodies for larger payloads
 app.use(bodyParser.json({ limit: '50mb' }));
