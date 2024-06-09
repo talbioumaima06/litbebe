@@ -156,7 +156,7 @@ app.post("/upload", function (req, res) {
   const fileName = `${Date.now()}.png`; // You can adjust the file extension as per your requirement
   
   // Path to save the uploaded image
-  const filePath = `./uploads/${fileName}`;
+  const filePath = `./normal3/${fileName}`;
   
   // Write the base64 data to a file
   fs.writeFile(filePath, base64Data, 'base64', function(err) {
